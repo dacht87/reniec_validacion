@@ -40,6 +40,10 @@
       <artifactId>quarkus-arc</artifactId>
     </dependency>
     <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-direct</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-reactive</artifactId>
     </dependency>
@@ -47,6 +51,14 @@
       <groupId>com.ibm.mq</groupId>
       <artifactId>com.ibm.mq.jakarta.client</artifactId>
       <version>9.3.2.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-core</artifactId>
+    </dependency>
+     <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-http</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>

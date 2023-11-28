@@ -1,6 +1,6 @@
 package org.acme;
 
-import org.acme.Services.JwtConfigImpl;
+
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import jakarta.inject.Inject;
@@ -22,9 +22,6 @@ public class GreetingResource {
     @Inject
     private ConnectionFactory connectionFactory;
 
-    @Inject
-    JwtConfigImpl jwtConfig;
-
     @ConfigProperty(name = "app.jms.queue-start")
     private String queue;
 
@@ -45,10 +42,6 @@ public class GreetingResource {
         
         message.setStringProperty("_Destination", destination.toString());
 
-        System.out.println("=======niciar envíox");
-        System.out.println(jwtConfig.getSecretKey());
-
-        
 
         producer.send(message);
 

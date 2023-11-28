@@ -2,6 +2,9 @@ package org.acme.builder;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.dataformat.bindy.fixed.BindyFixedLengthDataFormat;
@@ -9,20 +12,21 @@ import org.apache.camel.dataformat.bindy.fixed.BindyFixedLengthDataFormat;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-import org.acme.bean.RespuestaToken;
+import org.acme.bean.Respuesta2;
 import org.acme.bean.Respuesta;
 import org.acme.processor.ValidationProcessor;
 import org.acme.processor.ValidationProcessor2;
 import org.acme.processor.ValidationProcessor3;
 import org.acme.bindy.ftp.Header;
 import org.acme.bindy.ftp.HeaderConsulta;
-import org.acme.interfaces.IjwtConfig;
+//import org.springframework.stereotype.Component;
+
 
 @ApplicationScoped
 public class ValidationRouteBuilder extends RouteBuilder {
 
     private JacksonDataFormat formatRpta = new JacksonDataFormat(Respuesta.class);
-    private JacksonDataFormat formatToken = new JacksonDataFormat(RespuestaToken.class);
+    private JacksonDataFormat format2 = new JacksonDataFormat(Respuesta2.class);
     private BindyFixedLengthDataFormat camelDataFormat = new BindyFixedLengthDataFormat(Header.class);
     private BindyFixedLengthDataFormat camelDataFormat2 = new BindyFixedLengthDataFormat(HeaderConsulta.class);
     //private BindyFixedLengthDataFormat camelDataFormatToken = new JacksonDataFormat(RespuestaToken.class);
@@ -37,14 +41,14 @@ public class ValidationRouteBuilder extends RouteBuilder {
     private String queue_out_end;
 
     @Inject
-    IjwtConfig jwtConfig;
+    CamelContext camelContext;
 
+   
 
     @Override
     public void configure() throws Exception {
 
-        System.out.println("=====INICIO VALIDATION COLA");  
-        System.out.println(jwtConfig.getSecretKey()); 
+        System.out.println("=====GET INFOR VALIDATORXXX2");  
 
         from(String.format("jms:queue:%s",queue_in))
             .log("Received a message - ${body} - sending to First validation")
@@ -52,16 +56,20 @@ public class ValidationRouteBuilder extends RouteBuilder {
             .choice()
                 .when(body().isInstanceOf(Respuesta.class))
                     .marshal(formatRpta)
-                    .to(String.format("jms:queue:%s",queue_out_end))
+                    //.to(String.format("jms:queue:%s",queue_out_end))
+                    //.to("direct:obtenerInformacion")
+                    .to("http://localhost:8090/receptor/mensaje")
                 .otherwise()
                     .log("Received a message - ${body} - sending to Second validation")
                     .unmarshal(camelDataFormat) 
-                    .process(new ValidationProcessor(jwtConfig))
+                    .process(new ValidationProcessor())
                     .choice()
                         .when(body().isInstanceOf(Respuesta.class))
                             .log("Received a message - ${body} - sending to End")
                             .marshal(formatRpta)
                             .to(String.format("jms:queue:%s",queue_out_end))
+                            //.to("direct:obtenerInformacion")
+                            .to("http://localhost:8090/receptor/mensaje")
                         .otherwise()
                             .log("Received a message - ${body} - sending to Processed")
                             //.marshal(camelDataFormat2)
@@ -69,9 +77,11 @@ public class ValidationRouteBuilder extends RouteBuilder {
                             //.marshal(formatToken)
                             //.marshal(formatToken)
                             .unmarshal(camelDataFormat2)
-                            .process(new ValidationProcessor3())
-                            .marshal(formatToken)
-                            .to(String.format("jms:queue:%s",queue_out))
+                            .process(new ValidationProcessor3(camelContext))
+                            .marshal(format2)
+                            //.to(String.format("jms:queue:%s",queue_out))
+                            //.to("direct:obtenerInformacion")    
+                            .to("http://localhost:8090/receptor/mensaje")
                     .endChoice()
             .endChoice()
             ;

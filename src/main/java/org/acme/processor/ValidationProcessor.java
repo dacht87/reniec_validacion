@@ -6,18 +6,10 @@ import org.apache.camel.Exchange;
 
 import org.acme.bean.Respuesta;
 import org.acme.bindy.ftp.Header;
-import org.acme.interfaces.IjwtConfig;
-
 
 public class ValidationProcessor implements Processor{
 
-    IjwtConfig jwtConfig;
-        
-    public ValidationProcessor(IjwtConfig jwtConfig){
-        this.jwtConfig=jwtConfig;
-    }
- 
-    @Override
+     @Override
     public void process(Exchange exchange) throws Exception {
 
         System.out.println("=====GET INFOR VALIDATOR");  

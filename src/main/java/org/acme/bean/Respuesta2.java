@@ -1,6 +1,6 @@
 package org.acme.bean;
 
-public class RespuestaToken {
+public class Respuesta2 {
 
    
     public String version;
@@ -41,7 +41,7 @@ public class RespuestaToken {
 
     // public String token;
 
-    public RespuestaToken(String version,
+    public Respuesta2(String version,
     String lonCabecera,
     String tipoServicio,
     String longTotalTrama,
@@ -83,7 +83,7 @@ public class RespuestaToken {
         //this.token = token;
         
     }
-    public RespuestaToken(){
+    public Respuesta2(){
     }
 
     @Override
