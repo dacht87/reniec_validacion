@@ -2,8 +2,6 @@ package org.acme.builder;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
@@ -19,8 +17,6 @@ import org.acme.processor.ValidationProcessor2;
 import org.acme.processor.ValidationProcessor3;
 import org.acme.bindy.ftp.Header;
 import org.acme.bindy.ftp.HeaderConsulta;
-//import org.springframework.stereotype.Component;
-
 
 @ApplicationScoped
 public class ValidationRouteBuilder extends RouteBuilder {
@@ -34,16 +30,14 @@ public class ValidationRouteBuilder extends RouteBuilder {
     @ConfigProperty(name = "app.jms.queue-start")
     private String queue_in;
 
-    @ConfigProperty(name = "app.jms.queue-validated")
-    private String queue_out;
+    // @ConfigProperty(name = "app.jms.queue-validated")
+    // private String queue_out;
 
     @ConfigProperty(name = "app.jms.queue-processed")
     private String queue_out_end;
 
-    @Inject
-    CamelContext camelContext;
-
-   
+     @ConfigProperty(name = "app.camel.rest.route.get-info")
+    private String route_get_info;
 
     @Override
     public void configure() throws Exception {
@@ -56,9 +50,9 @@ public class ValidationRouteBuilder extends RouteBuilder {
             .choice()
                 .when(body().isInstanceOf(Respuesta.class))
                     .marshal(formatRpta)
-                    //.to(String.format("jms:queue:%s",queue_out_end))
+                    .to(String.format("jms:queue:%s",queue_out_end))
                     //.to("direct:obtenerInformacion")
-                    .to("http://localhost:8090/receptor/mensaje")
+                    //.to("http://localhost:8090/receptor/mensaje")
                 .otherwise()
                     .log("Received a message - ${body} - sending to Second validation")
                     .unmarshal(camelDataFormat) 
@@ -69,7 +63,7 @@ public class ValidationRouteBuilder extends RouteBuilder {
                             .marshal(formatRpta)
                             .to(String.format("jms:queue:%s",queue_out_end))
                             //.to("direct:obtenerInformacion")
-                            .to("http://localhost:8090/receptor/mensaje")
+                            //.to("http://localhost:8090/receptor/mensaje")
                         .otherwise()
                             .log("Received a message - ${body} - sending to Processed")
                             //.marshal(camelDataFormat2)
@@ -77,15 +71,14 @@ public class ValidationRouteBuilder extends RouteBuilder {
                             //.marshal(formatToken)
                             //.marshal(formatToken)
                             .unmarshal(camelDataFormat2)
-                            .process(new ValidationProcessor3(camelContext))
+                            .process(new ValidationProcessor3())
                             .marshal(format2)
                             //.to(String.format("jms:queue:%s",queue_out))
                             //.to("direct:obtenerInformacion")    
-                            .to("http://localhost:8090/receptor/mensaje")
+                            .to(route_get_info)
                     .endChoice()
             .endChoice()
             ;
-
 
     }
 
