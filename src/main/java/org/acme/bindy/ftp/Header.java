@@ -1,6 +1,6 @@
 package org.acme.bindy.ftp;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+//import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 
