@@ -38,7 +38,7 @@ public class ValidationRouteBuilder extends RouteBuilder {
 
         System.out.println("=====GET INFOR VALIDATORXXX2");  
 
-        from(String.format("jms:queue:%s?transacted=false",queue_in))
+        from(String.format("jms:queue:%s?concurrentConsumers=50",queue_in))
             .log("Received a message - ${body} - sending to First validation")
             .process(new ValidationProcessor2())
             .choice()
