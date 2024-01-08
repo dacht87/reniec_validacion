@@ -6,23 +6,24 @@ import org.apache.camel.Exchange;
 
 import org.acme.bean.Respuesta;
 import org.acme.bindy.ftp.Header;
+import io.quarkus.logging.Log;
 
 public class ValidationProcessor implements Processor{
 
      @Override
     public void process(Exchange exchange) throws Exception {
 
-        System.out.println("=====GET INFOR VALIDATOR");  
+        Log.info("=====GET INFOR VALIDATOR");  
 
-        int cantidadLimite = 0;
-        int cantTotalSubTram = 0;
+        var cantidadLimite = 0;
+        var cantTotalSubTram = 0;
         Header query = exchange.getIn().getBody(Header.class);
         
-        System.out.println("=====GET INFOR VALIDATOR111111" + query);  
+        Log.info("=====GET INFOR VALIDATOR111111" + query);  
 
         String tipoCons = query.tipoConsulta.trim();
 
-        System.out.println("=====GET INFOR VALIDATOR3333" + query.subTramaConsulta);  
+        Log.info("=====GET INFOR VALIDATOR3333" + query.subTramaConsulta);  
 
         switch (tipoCons) {
             case "1":
@@ -46,8 +47,8 @@ public class ValidationProcessor implements Processor{
         if(cantTotalSubTram != cantidadLimite )
         {
             
-            System.out.println("=====ERROR en cantidad limite:" + cantTotalSubTram );  
-            System.out.println("=====ERROR en cantidad limite2:" + cantidadLimite );  
+            Log.info("=====ERROR en cantidad limite:" + cantTotalSubTram );  
+            Log.info("=====ERROR en cantidad limite2:" + cantidadLimite );  
 
             exchange.getIn().setBody(new Respuesta(query.getTramaHeader() + (cantTotalSubTram == 0 ? "5011" : "5100")));
 
@@ -55,8 +56,6 @@ public class ValidationProcessor implements Processor{
         }
 
         exchange.getIn().setBody(query.getTramaHeader2());
-
-        return ;
 
     }
 

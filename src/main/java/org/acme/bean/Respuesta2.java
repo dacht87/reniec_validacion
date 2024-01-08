@@ -1,52 +1,56 @@
 package org.acme.bean;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Respuesta2 {
 
    
-    public String version;
+    private String version;
 
-    public String lonCabecera;
+    private String lonCabecera;
 
-    public String tipoServicio;
+    private String tipoServicio;
 
-    public String longTotalTrama;
+    private String longTotalTrama;
 
-    public String fragmentacion;
+    private String fragmentacion;
 
-    public String TTL;
+    private String ttl;
 
-    public String tipoConsulta;
+    private String tipoConsulta;
 
-    public String caractVerif;
+    private String caractVerif;
 
-    public String codInstitucion;
+    private String codInstitucion;
 
-    public String codServerReniec;
+    private String codServerReniec;
 
-    public String agenciaInstSolic;
+    private String agenciaInstSolic;
 
-    public String usuarioFinalInst;
+    private String usuarioFinalInst;
 
-    public String hostFinalInst;
+    private String hostFinalInst;
 
-    public String reservado;
+    private String reservado;
 
-    public String nroDNI;
+    private String nroDNI;
 
-    public String tipoSubConsulta;
+    private String tipoSubConsulta;
 
-    public String formatoFirma;
+    private String formatoFirma;
 
-    public String reservadoSubTrama;
+    private String reservadoSubTrama;
 
-    // public String token;
 
     public Respuesta2(String version,
     String lonCabecera,
     String tipoServicio,
     String longTotalTrama,
     String fragmentacion,
-    String TTL,
+    String ttl,
     String tipoConsulta,
     String caractVerif,
     String codInstitucion,
@@ -59,15 +63,13 @@ public class Respuesta2 {
     String tipoSubConsulta,
     String formatoFirma,
     String reservadoSubTrama
-    // ,
-    // String token
     ){
         this.version = version;
         this.lonCabecera = lonCabecera;
         this.tipoServicio = tipoServicio;
         this.longTotalTrama = longTotalTrama;
         this.fragmentacion = fragmentacion;
-        this.TTL = TTL;
+        this.ttl = ttl;
         this.tipoConsulta = tipoConsulta;
         this.caractVerif = caractVerif;
         this.codInstitucion = codInstitucion;
@@ -79,10 +81,9 @@ public class Respuesta2 {
         this.nroDNI = nroDNI;
         this.tipoSubConsulta = tipoSubConsulta;
         this.formatoFirma = formatoFirma;
-        this.reservadoSubTrama = reservadoSubTrama;
-        //this.token = token;
-        
+        this.reservadoSubTrama = reservadoSubTrama;        
     }
+    
     public Respuesta2(){
     }
 

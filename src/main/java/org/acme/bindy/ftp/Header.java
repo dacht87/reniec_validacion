@@ -1,6 +1,5 @@
 package org.acme.bindy.ftp;
 
-//import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 
@@ -26,7 +25,7 @@ public class Header {
     public String fragmentacion;
 
     @DataField(pos = 43, length=9)
-    public String TTL;
+    public String ttl;
 
     @DataField(pos = 52, length=1)
     public String tipoConsulta;
@@ -55,19 +54,14 @@ public class Header {
     @DataField(pos = 129, length=1000)
     public String subTramaConsulta;
 
-    //public String token;
-   
     
     public String getTramaHeader() {
-        return version + lonCabecera + tipoServicio + longTotalTrama + fragmentacion + TTL + tipoConsulta + caractVerif + codInstitucion + codServerReniec + agenciaInstSolic + usuarioFinalInst + hostFinalInst + reservado;
+        return version + lonCabecera + tipoServicio + longTotalTrama + fragmentacion + ttl + tipoConsulta + caractVerif + codInstitucion + codServerReniec + agenciaInstSolic + usuarioFinalInst + hostFinalInst + reservado;
     }
 
-    // public String getTramaHeaderToken() {
-    //     return version + lonCabecera + tipoServicio + longTotalTrama + fragmentacion + TTL + tipoConsulta + caractVerif + codInstitucion + codServerReniec + agenciaInstSolic + usuarioFinalInst + hostFinalInst + reservado + subTramaConsulta + token;
-    // }
 
     public String getTramaHeader2() {
-        return version + lonCabecera + tipoServicio + longTotalTrama + fragmentacion + TTL + tipoConsulta + caractVerif + codInstitucion + codServerReniec + agenciaInstSolic + usuarioFinalInst + hostFinalInst + reservado + subTramaConsulta;
+        return version + lonCabecera + tipoServicio + longTotalTrama + fragmentacion + ttl + tipoConsulta + caractVerif + codInstitucion + codServerReniec + agenciaInstSolic + usuarioFinalInst + hostFinalInst + reservado + subTramaConsulta;
     }
 
 
@@ -76,10 +70,6 @@ public class Header {
     public String toString() {
         return "";
     }
-
-    // public void setToken(String token) {
-    //     this.token = token;
-    // }
 
 
 }

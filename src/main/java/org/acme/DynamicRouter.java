@@ -2,7 +2,7 @@ package org.acme;
 
 public class DynamicRouter {
     
-    String route(String body){
+    String route(){
         return String.format("jms:queue:%s","DEV.QUEUE.RESPUESTA.CLI1");
     }
 }

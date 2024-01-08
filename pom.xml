@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.acme</groupId>
-  <artifactId>reniec-svc001</artifactId>
+  <artifactId>reniec-validacion-main</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <properties>
     <compiler-plugin.version>3.11.0</compiler-plugin.version>
@@ -72,10 +72,6 @@
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-jms</artifactId>
     </dependency>
-    <!-- <dependency>
-      <groupId>org.apache.camel.quarkus</groupId>
-      <artifactId>camel-quarkus-opentelemetry</artifactId>
-    </dependency> -->
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-bean</artifactId>
@@ -88,34 +84,10 @@
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-bindy</artifactId>
     </dependency>
-    <!-- <dependency>
-      <groupId>org.apache.camel.quarkus</groupId>
-      <artifactId>camel-quarkus-bindy</artifactId>
-    </dependency> -->
-    <!-- <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-hibernate-orm</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-hibernate-orm-panache</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-jdbc-oracle</artifactId>
-    </dependency> -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-openshift</artifactId>
     </dependency>
-    <!-- <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-jwt</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-jwt-build</artifactId>
-    </dependency> -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
@@ -125,6 +97,12 @@
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.30</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>
@@ -182,6 +160,26 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+		  <groupId>org.jacoco</groupId>
+		  <artifactId>jacoco-maven-plugin</artifactId>
+		  <version>0.8.11</version>
+		  <executions>
+		    <execution>
+		      <goals>
+		        <goal>prepare-agent</goal>
+		      </goals>
+		    </execution>
+		    <!-- attached to Maven test phase -->
+		    <execution>
+		      <id>report</id>
+		      <phase>test</phase>
+		      <goals>
+		        <goal>report</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		</plugin>
     </plugins>
   </build>
   <profiles>

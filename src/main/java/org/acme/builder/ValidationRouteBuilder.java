@@ -15,6 +15,7 @@ import org.acme.processor.ValidationProcessor2;
 import org.acme.processor.ValidationProcessor3;
 import org.acme.bindy.ftp.Header;
 import org.acme.bindy.ftp.HeaderConsulta;
+import io.quarkus.logging.Log;
 
 @ApplicationScoped
 public class ValidationRouteBuilder extends RouteBuilder {
@@ -25,26 +26,26 @@ public class ValidationRouteBuilder extends RouteBuilder {
     private BindyFixedLengthDataFormat camelDataFormat2 = new BindyFixedLengthDataFormat(HeaderConsulta.class);
     
     @ConfigProperty(name = "app.jms.queue-start")
-    private String queue_in;
+    private String queueIn;
 
     @ConfigProperty(name = "app.jms.queue-processed")
-    private String queue_out_end;
+    private String queueOutEnd;
 
      @ConfigProperty(name = "app.camel.rest.route.get-info")
-    private String route_get_info;
+    private String routeGetInfo;
 
     @Override
     public void configure() throws Exception {
 
-        System.out.println("=====GET INFOR VALIDATORXXX2");  
+        Log.info("=====GET INFOR VALIDATORXXX2");  
 
-        from(String.format("jms:queue:%s?concurrentConsumers=50",queue_in))
+        from(String.format("jms:queue:%s?concurrentConsumers=50",queueIn))
             .log("Received a message - ${body} - sending to First validation")
             .process(new ValidationProcessor2())
             .choice()
                 .when(body().isInstanceOf(Respuesta.class))
                     .marshal(formatRpta)
-                    .to(String.format("jms:queue:%s",queue_out_end))
+                    .to(String.format("jms:queue:%s",queueOutEnd))
                 .otherwise()
                     .log("Received a message - ${body} - sending to Second validation")
                     .unmarshal(camelDataFormat) 
@@ -53,13 +54,13 @@ public class ValidationRouteBuilder extends RouteBuilder {
                         .when(body().isInstanceOf(Respuesta.class))
                             .log("Received a message - ${body} - sending to End")
                             .marshal(formatRpta)
-                            .to(String.format("jms:queue:%s",queue_out_end))
+                            .to(String.format("jms:queue:%s",queueOutEnd))
                         .otherwise()
                             .log("Received a message - ${body} - sending to Processed")
                             .unmarshal(camelDataFormat2)
                             .process(new ValidationProcessor3())
                             .marshal(format2)
-                            .to(route_get_info)
+                            .to(routeGetInfo)
                     .endChoice()
             .endChoice()
             ;
