@@ -4,6 +4,8 @@ import org.apache.camel.component.jms.JmsComponent;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import java.io.IOException;
 import jakarta.jms.JMSException;
+import lombok.Getter;
+import lombok.Setter;
 
 import com.ibm.msg.client.jakarta.jms.JmsConnectionFactory;
 import com.ibm.msg.client.jakarta.jms.JmsConstants;
@@ -15,27 +17,42 @@ import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.jms.ConnectionFactory;
 
+/**
+ * Clase que configura la conexion a las colass de mq
+ * */
 @ApplicationScoped
+@Getter
+@Setter
 public class ApplicationContext {
 
+    /*host del mq*/
     @ConfigProperty(name = "app.jms.host")
     private String host;
 
+    /*puerto del mq*/
     @ConfigProperty(name = "app.jms.port")
     private int port;
 
+    /*canal de la cola mq*/
     @ConfigProperty(name = "app.jms.channel")
     private String channel;
 
+    /*queue manager de la cola mq*/
     @ConfigProperty(name = "app.jms.queuemgr")
     private String queuemgr;
 
+    /*usuario de la cola mq*/
     @ConfigProperty(name = "app.jms.user")
     private String user;
 
+    /*contraseña de la cola mq*/
     @ConfigProperty(name = "app.jms.password")
     private String password;
 
+    /**
+     * Metodo que configura la conexion a las colass de mq
+     * @return el ConnectionFactory con la configuracion de mq
+     * */
     @Produces
     @Default
     public ConnectionFactory connectionFactory() throws JMSException {
@@ -60,6 +77,10 @@ public class ApplicationContext {
     }
 
     
+    /**
+     * Metodo que configura el JmsComponet que contiene el ConnectionFactory
+     * @return el JmsComponent
+     * */
     @Produces
     @Default
     public JmsComponent jms() throws IOException, JMSException {

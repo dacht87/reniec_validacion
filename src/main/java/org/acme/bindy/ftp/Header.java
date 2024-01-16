@@ -3,73 +3,90 @@ package org.acme.bindy.ftp;
 import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 
-//@RegisterForReflection
-//@FixedLengthRecord(length=128, paddingChar=' ')
-//@FixedLengthRecord(length=130, paddingChar=' ')
+/**
+ * Clase que mapea una consulta en la cola de inicio
+ * */
 @FixedLengthRecord
 public class Header {
 
+    /*version*/
     @DataField(pos = 1, length=4)
-    public String version;
+    public String headVersion;
 
+    /*longitud de la cabecera*/
     @DataField(pos = 5, length=4)
-    public String lonCabecera;
+    public String headLonCabecera;
 
+    /*tipo de servicio*/
     @DataField(pos = 9, length=3)
-    public String tipoServicio;
+    public String headTipoServicio;
 
+    /*longitud total de la trama*/
     @DataField(pos = 12, length=9)
-    public String longTotalTrama;
+    public String headLongTotalTrama;
 
+    /*fragmentacion*/
     @DataField(pos = 21, length=22)
-    public String fragmentacion;
+    public String headFragmentacion;
 
+    /*tiempo de vida del mensaje en la cola de respuesta*/
     @DataField(pos = 43, length=9)
-    public String ttl;
+    public String headTtl;
 
+    /*tipo de consulta*/
     @DataField(pos = 52, length=1)
-    public String tipoConsulta;
+    public String headTipoConsulta;
 
+    /*caracteres de verificacion*/
     @DataField(pos = 53, length=16)
-    public String caractVerif;
+    public String headCaractVerif;
 
+    /*codigo de institucion solicitante*/
     @DataField(pos = 69, length=10)
-    public String codInstitucion;
+    public String headCodInstitucion;
 
+    /*codigo de servidor reniec*/
     @DataField(pos = 79, length=10)
-    public String codServerReniec;
+    public String headCodServerReniec;
 
+    /*agencia de la institucion solicitante*/
     @DataField(pos = 89, length=10)
-    public String agenciaInstSolic;
+    public String headAgenciaInstSolic;
 
+    /*usuario final de la institucion solicitante*/
     @DataField(pos = 99, length=10)
-    public String usuarioFinalInst;
+    public String headUsuarioFinalInst;
 
+    /*host final de la institucion solicitante*/
     @DataField(pos = 109, length=10)
-    public String hostFinalInst;
+    public String headHostFinalInst;
 
+    /*reservado*/
     @DataField(pos = 119, length=10)
-    public String reservado;
+    public String headReservado;
 
+    /*subtrama de de la consulta*/
     @DataField(pos = 129, length=1000)
-    public String subTramaConsulta;
+    public String headSubTramaConsulta;
 
     
+    /**
+     * Concatena los campos de la consulta para ser enviado al endpoint de respuesta
+     * @return La cadena de campos concatenados
+     * */
     public String getTramaHeader() {
-        return version + lonCabecera + tipoServicio + longTotalTrama + fragmentacion + ttl + tipoConsulta + caractVerif + codInstitucion + codServerReniec + agenciaInstSolic + usuarioFinalInst + hostFinalInst + reservado;
+        return headVersion + headLonCabecera + headTipoServicio + headLongTotalTrama + headFragmentacion + headTtl + headTipoConsulta + headCaractVerif + headCodInstitucion + headCodServerReniec + headAgenciaInstSolic + headUsuarioFinalInst + headHostFinalInst + headReservado;
     }
 
 
+    /**
+     * Concatena los campos de la consulta para ser enviado al endpoint de obtencion de data (incluye la subtrama)
+     * @return La cadena de campos concatenados
+     * */
     public String getTramaHeader2() {
-        return version + lonCabecera + tipoServicio + longTotalTrama + fragmentacion + ttl + tipoConsulta + caractVerif + codInstitucion + codServerReniec + agenciaInstSolic + usuarioFinalInst + hostFinalInst + reservado + subTramaConsulta;
+        return headVersion + headLonCabecera + headTipoServicio + headLongTotalTrama + headFragmentacion + headTtl + headTipoConsulta + headCaractVerif + headCodInstitucion + headCodServerReniec + headAgenciaInstSolic + headUsuarioFinalInst + headHostFinalInst + headReservado + headSubTramaConsulta;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "";
-    }
 
 
 }

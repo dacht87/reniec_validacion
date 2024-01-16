@@ -35,75 +35,111 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+	<!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-arc -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.camel.quarkus/camel-quarkus-direct -->
     <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-direct</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-resteasy-reactive -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-reactive</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.ibm.mq/com.ibm.mq.jakarta.client -->
     <dependency>
       <groupId>com.ibm.mq</groupId>
       <artifactId>com.ibm.mq.jakarta.client</artifactId>
       <version>9.3.2.1</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.camel.quarkus/camel-quarkus-core -->
     <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-core</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.camel.quarkus/camel-quarkus-http -->
      <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-http</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.camel.quarkus/camel-quarkus-log -->
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-log</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.16</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.camel.quarkus/camel-quarkus-timer -->
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-timer</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.camel.quarkus/camel-quarkus-jms -->
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-jms</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.camel.quarkus/camel-quarkus-bean -->
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-bean</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.camel/camel-jackson -->
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-jackson</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.camel.quarkus/camel-quarkus-bindy -->
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-bindy</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-openshift -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-openshift</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-junit5 -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.30</version>
       <scope>provided</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>1.19.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!--  https://mvnrepository.com/artifact/org.mockito/mockito-core  -->
+	<dependency>
+	  <groupId>org.mockito</groupId>
+	  <artifactId>mockito-core</artifactId>
+	  <version>5.7.0</version>
+	  <scope>test</scope>
+	</dependency>
   </dependencies>
   <build>
     <plugins>
