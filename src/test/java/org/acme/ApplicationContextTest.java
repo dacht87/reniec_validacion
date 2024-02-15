@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /*Clase para hacer Test de la clase ApplicationContext*/
-public class ApplicationContextTest {
+class ApplicationContextTest {
     ApplicationContext context = new ApplicationContext();
 
     /*Test del connection Factory*/
     @Test
-    public void testConnectionFactory() throws JMSException {
+    void testConnectionFactory() throws JMSException {
         // Configurar datos de prueba
         // Establece el nombre del host para la conexión
         context.setHost("qm1-ibm-mq.reniec.svc.cluster.local");
