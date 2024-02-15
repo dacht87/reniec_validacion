@@ -10,14 +10,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Respuesta {
+public class Respuesta1 {
     /*mensaje de respuesta*/
     private String respuesta;
 
     /**
      * Constructor que genera una Respuesta con sus campos llenos
      * */
-    public Respuesta(String respuesta){
+    public Respuesta1(String respuesta){
         this.respuesta=respuesta;
     }
 
