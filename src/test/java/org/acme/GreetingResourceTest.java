@@ -14,6 +14,8 @@ import org.acme.processor.ValidationProcessor;
 import org.acme.processor.ValidationProcessor2;
 import org.acme.processor.ValidationProcessor3;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 
 /**
@@ -26,7 +28,7 @@ class GreetingResourceTest {
 	 * Test del metodo procesarData de la clase ValidationProcessor en caso se le envie un Header correcto  (y el tipo consulta es 2)
 	 * */
      @Test
-     void testValidationProcessorCorrecto() {
+     void testValidationProcessorPorDNICorrecto() {
           var validationProcessor=new ValidationProcessor();
           var query=new Header();
           query.headVersion="0002";
@@ -51,10 +53,15 @@ class GreetingResourceTest {
 
 
  	/**
- 	 * Test del metodo procesarData de la clase ValidationProcessor en caso se le envie un Header incorrecto (y el tipo consulta es 1)
+ 	 * Test del metodo procesarData de la clase ValidationProcessor en caso se le envie un Header incorrecto 
  	 * */
-      @Test
-      void testValidationProcessorCorrecto2() {
+      @ParameterizedTest
+      @CsvSource({
+        "'1', '706006481                     '",//PorDNI
+        "'2', ''",//Por nombre
+        "'3', ''",//tipo incorrecto
+     })
+      void testValidationProcessorInCorrecto(String tipo, String trama) {
            var validationProcessor=new ValidationProcessor();
            var query=new Header();
            query.headVersion="0002";
@@ -63,7 +70,7 @@ class GreetingResourceTest {
            query.headLongTotalTrama="000023000";
            query.headFragmentacion="                      ";
            query.headTtl="000000000";
-           query.headTipoConsulta="1";
+           query.headTipoConsulta=tipo;
            query.headCaractVerif="RENIECPERURENIEC";
            query.headCodInstitucion="DE2116    ";
            query.headCodServerReniec="RENIEC001 ";
@@ -71,63 +78,12 @@ class GreetingResourceTest {
            query.headUsuarioFinalInst="70600648  ";
            query.headHostFinalInst="HOST000000";
            query.headReservado="          ";
-           query.headSubTramaConsulta="706006481                     ";
+           query.headSubTramaConsulta=trama;
                 
            var rpta=validationProcessor.procesarData(query);
            assertNotNull(rpta, "la respuesta deberia ser incorrecta");
       }
       
- 	/**
- 	 * Test del metodo procesarData de la clase ValidationProcessor en caso se le envie un Header incorrecto  (y el tipo consulta es 2)
- 	 * */
-     @Test
-     void testValidationProcessorInCorrecto() {
-         var validationProcessor=new ValidationProcessor();
-          var query=new Header();
-          query.headVersion="0002";
-          query.headLonCabecera="0128";
-          query.headTipoServicio="000";
-          query.headLongTotalTrama="000023000";
-          query.headFragmentacion="                      ";
-          query.headTtl="000000000";
-          query.headTipoConsulta="2";
-          query.headCaractVerif="RENIECPERURENIEC";
-          query.headCodInstitucion="DE2116    ";
-          query.headCodServerReniec="RENIEC001 ";
-          query.headAgenciaInstSolic="0000INS000";
-          query.headUsuarioFinalInst="70600648  ";
-          query.headHostFinalInst="HOST000000";
-          query.headReservado="          ";
-          query.headSubTramaConsulta="";
-          var rpta=validationProcessor.procesarData(query);
-          assertNotNull(rpta, "la respuesta deberia ser incorrecta");
-     }
-
-  	/**
-  	 * Test del metodo procesarData de la clase ValidationProcessor en caso se le envie un Header un tipo de consulta incorrecto
-  	 * */
-      @Test
-      void testValidationProcessorInCorrecto2() {
-          var validationProcessor=new ValidationProcessor();
-           var query=new Header();
-           query.headVersion="0002";
-           query.headLonCabecera="0128";
-           query.headTipoServicio="000";
-           query.headLongTotalTrama="000023000";
-           query.headFragmentacion="                      ";
-           query.headTtl="000000000";
-           query.headTipoConsulta="3";
-           query.headCaractVerif="RENIECPERURENIEC";
-           query.headCodInstitucion="DE2116    ";
-           query.headCodServerReniec="RENIEC001 ";
-           query.headAgenciaInstSolic="0000INS000";
-           query.headUsuarioFinalInst="70600648  ";
-           query.headHostFinalInst="HOST000000";
-           query.headReservado="          ";
-           query.headSubTramaConsulta="";
-           var rpta=validationProcessor.procesarData(query);
-           assertNotNull(rpta, "la respuesta deberia ser incorrecta");
-      }
       
      /**
  	 * Test del metodo procesarData de la clase ValidationProcessor2 en caso se le envie un query correcto
@@ -204,7 +160,7 @@ class GreetingResourceTest {
           query.headReservado="          ";
           query.headSubTramaConsulta="706006481                     ";
                
-          assertEquals(query.getTramaHeader2(),"00020128000000023000                      0000000002RENIECPERURENIECDE2116    RENIEC001 0000INS00070600648  HOST000000          706006481                     ","metodo getTramaHeader2 incorrecto");
+          assertEquals("00020128000000023000                      0000000002RENIECPERURENIECDE2116    RENIEC001 0000INS00070600648  HOST000000          706006481                     ",query.getTramaHeader2(),"metodo getTramaHeader2 incorrecto");
 
           var query2=new HeaderConsulta();
           query2.version="0002";

@@ -2,11 +2,11 @@
 package org.acme.processor;
 
 import org.apache.camel.Processor;
-import org.apache.log4j.Logger;
 import org.apache.camel.Exchange;
 
-import org.acme.bean.Respuesta;
+import org.acme.bean.Respuesta1;
 import org.acme.bindy.ftp.Header;
+import org.apache.log4j.Logger;
 
 /**
  * Clase que se encarga de validar el tipo de consulta
@@ -28,7 +28,7 @@ public class ValidationProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
         // extrae el Header del exchange
         Header query = exchange.getIn().getBody(Header.class);
-        Respuesta rpta = procesarData(query);
+        Respuesta1 rpta = procesarData(query);
 
         if (rpta == null) {
 
@@ -59,7 +59,7 @@ public class ValidationProcessor implements Processor {
      * @param query: clase que contiene la consulta a validar
      * @return: Respuesta que contiene el mensaje de respuesta en caso de error
      */
-    public Respuesta procesarData(Header query) {
+    public Respuesta1 procesarData(Header query) {
         var cantidadLimite = 0;
         var cantTotalSubTram = 0;
         var rptaAdicional = "";
@@ -72,7 +72,7 @@ public class ValidationProcessor implements Processor {
 
         // Tipo de consulta no permitida
         if (tipoCons.length() == 0) {
-            return new Respuesta(query.getTramaHeader() + "5010");
+            return new Respuesta1(query.getTramaHeader() + "5010");
         }
 
         // obtiene la cantidad limite de la subtrama segun el tipo de consulta
@@ -88,31 +88,31 @@ public class ValidationProcessor implements Processor {
                 break;
             default:
                 // Tipo de consulta inválido
-                return new Respuesta(query.getTramaHeader() + "5009");
+                return new Respuesta1(query.getTramaHeader() + "5009");
         }
 
         cantTotalSubTram = query.headSubTramaConsulta.length();
 
         // valida la cantidad limite de la subtrama de la consulta
         if (cantTotalSubTram != cantidadLimite) {
-            return new Respuesta(query.getTramaHeader() + (cantTotalSubTram == 0 ? "5011" : "5100") + rptaAdicional);
+            return new Respuesta1(query.getTramaHeader() + (cantTotalSubTram == 0 ? "5011" : "5100") + rptaAdicional);
         }
         // Valida la versión del header según estandar Reniec
         else if (!version.equals("0002")) {
             logger.info("=====version:" + version);
-            return new Respuesta(query.getTramaHeader() + "5002" + rptaAdicional);
+            return new Respuesta1(query.getTramaHeader() + "5002" + rptaAdicional);
         }
         // Valida Caracteres de verificación incorrectos
         else if (!verif.equals("RENIECPERURENIEC")) {
-            return new Respuesta(query.getTramaHeader() + "5004" + rptaAdicional);
+            return new Respuesta1(query.getTramaHeader() + "5004" + rptaAdicional);
         }
         // Valida Servidor no válido
         else if (!servidor.equals("RENIEC001")) {
-            return new Respuesta(query.getTramaHeader() + "5008" + rptaAdicional);
+            return new Respuesta1(query.getTramaHeader() + "5008" + rptaAdicional);
         }
         // No existe la empresa ingresada para usar el servicio
         else if (agencia.length() == 0) {
-            return new Respuesta(query.getTramaHeader() + "5020" + rptaAdicional);
+            return new Respuesta1(query.getTramaHeader() + "5020" + rptaAdicional);
         }
 
         return null;

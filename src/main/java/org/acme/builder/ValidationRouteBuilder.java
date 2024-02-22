@@ -11,7 +11,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 import org.acme.bean.Respuesta2;
 import org.acme.bean.Respuesta4;
-import org.acme.bean.Respuesta;
+import org.acme.bean.Respuesta1;
 import org.acme.processor.ValidationProcessor;
 import org.acme.processor.ValidationProcessor2;
 import org.acme.processor.ValidationProcessor3;
@@ -32,7 +32,7 @@ public class ValidationRouteBuilder extends RouteBuilder {
     private static Logger logger = Logger.getLogger(ValidationRouteBuilder.class);
 
     /* Formateador de json a la clase Respuesta */
-    private JacksonDataFormat formatRpta = new JacksonDataFormat(Respuesta.class);
+    private JacksonDataFormat formatRpta = new JacksonDataFormat(Respuesta1.class);
 
     /* Formateador de json a la clase Respuesta2 */
     private JacksonDataFormat format2 = new JacksonDataFormat(Respuesta2.class);
@@ -75,7 +75,7 @@ public class ValidationRouteBuilder extends RouteBuilder {
                 .choice()
                 // si la el resultado es de tipo Respuesta significa que la validacion falló lo
                 // convierte en formato json
-                .when(body().isInstanceOf(Respuesta.class))
+                .when(body().isInstanceOf(Respuesta1.class))
                 .marshal(formatRpta)
                 // y lo envía a la cola de fin
                 .to(String.format("jms:queue:%s", queueOutEnd))
@@ -87,7 +87,7 @@ public class ValidationRouteBuilder extends RouteBuilder {
                 .choice()
                 // si la el resultado es de tipo Respuesta significa que la validacion falló lo
                 // convierte en formato json
-                .when(body().isInstanceOf(Respuesta.class))
+                .when(body().isInstanceOf(Respuesta1.class))
                 .marshal(formatRpta)
                 // y lo envía a la cola de fin
                 .to(String.format("jms:queue:%s", queueOutEnd))
