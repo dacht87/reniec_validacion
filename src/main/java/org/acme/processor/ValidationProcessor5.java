@@ -30,7 +30,6 @@ public class ValidationProcessor5 implements Processor {
         // extrae la consulta en una clase Header del exchange
         Header query = exchange.getIn().getBody(Header.class);
         // inserta la respuesta en el body
-        // exchange.getIn().setBody(query.getRespuesta());
         exchange.getIn().setBody(query.getTramaHeader2());
 
     }

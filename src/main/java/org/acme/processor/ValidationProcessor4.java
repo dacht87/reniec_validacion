@@ -14,9 +14,6 @@ import org.acme.bindy.ftp.HeaderConsulta2;
  */
 public class ValidationProcessor4 implements Processor {
 
-    /* Clase que permite generar los logs */
-    private static Logger logger = Logger.getLogger(ValidationProcessor4.class);
-
     /**
      * Metodo que se encarga de transformar la consulta a la clase HeaderConsulta2
      * para
@@ -29,7 +26,6 @@ public class ValidationProcessor4 implements Processor {
      */
     @Override
     public void process(Exchange exchange) throws Exception {
-        logger.info("=====GET INFOR VALIDATOR");
         // extrae la consulta en una clase HeaderConsulta del exchange
         HeaderConsulta2 query = exchange.getIn().getBody(HeaderConsulta2.class);
         // inserta la respuesta en el body
@@ -45,26 +41,26 @@ public class ValidationProcessor4 implements Processor {
      * @return la data en formato Respuesta4
      */
     public Respuesta4 procesarData(HeaderConsulta2 query) {
-        return new Respuesta4(query.version,
-                query.lonCabecera,
-                query.tipoServicio,
-                query.longTotalTrama,
-                query.fragmentacion,
-                query.ttl,
-                query.tipoConsulta,
-                query.caractVerif,
-                query.codInstitucion,
-                query.codServerReniec,
-                query.agenciaInstSolic,
-                query.usuarioFinalInst,
-                query.hostFinalInst,
-                query.reservado,
-                query.coincidencias,
-                query.grupo,
-                query.apellidoPaterno,
-                query.apellidoMaterno,
-                query.prenombres,
-                query.reservadoSubConsulta);
+        return new Respuesta4(query.header2Version,
+                query.header2LonCabecera,
+                query.header2TipoServicio,
+                query.header2LongTotalTrama,
+                query.header2Fragmentacion,
+                query.header2Ttl,
+                query.header2TipoConsulta,
+                query.header2CaractVerif,
+                query.header2CodInstitucion,
+                query.header2CodServerReniec,
+                query.header2AgenciaInstSolic,
+                query.header2UsuarioFinalInst,
+                query.header2HostFinalInst,
+                query.header2Reservado,
+                query.header2Coincidencias,
+                query.header2Grupo,
+                query.header2ApellidoPaterno,
+                query.header2ApellidoMaterno,
+                query.header2Prenombres,
+                query.header2ReservadoSubConsulta);
     }
 
 }

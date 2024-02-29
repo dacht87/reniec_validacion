@@ -13,64 +13,64 @@ import lombok.Setter;
 public class Respuesta4 {
 
     /* version */
-    private String version;
+    private String rptaVersion;
 
     /* longitud de la cabecera */
-    private String lonCabecera;
+    private String rptaLonCabecera;
 
     /* tipo de servicio */
-    private String tipoServicio;
+    private String rptaTipoServicio;
 
     /* longitud total de la trama */
-    private String longTotalTrama;
+    private String rptaLongTotalTrama;
 
     /* fragmentacion */
-    private String fragmentacion;
+    private String rptaFragmentacion;
 
     /* tiempo de vida del mensaje en la cola de respuesta */
-    private String ttl;
+    private String rptaTtl;
 
     /* tipo de consulta */
-    private String tipoConsulta;
+    private String rptaTipoConsulta;
 
     /* caracteres de verificacion */
-    private String caractVerif;
+    private String rptaCaractVerif;
 
     /* codigo de institucion solicitante */
-    private String codInstitucion;
+    private String rptaCodInstitucion;
 
     /* codigo de servidor reniec */
-    private String codServerReniec;
+    private String rptaCodServerReniec;
 
     /* agencia de la institucion solicitante */
-    private String agenciaInstSolic;
+    private String rptaAgenciaInstSolic;
 
     /* usuario final de la institucion solicitante */
-    private String usuarioFinalInst;
+    private String rptaUsuarioFinalInst;
 
     /* host final de la institucion solicitante */
-    private String hostFinalInst;
+    private String rptaHostFinalInst;
 
     /* reservado */
-    private String reservado;
+    private String rptaReservado;
 
     /* dni */
-    public String coincidencias;
+    private String rptaCoincidencias;
 
     /* incio de grupo () */
-    public String grupo;
+    private String rptaGrupo;
 
     /* apellido paterno */
-    public String apellidoPaterno;
+    private String rptaApellidoPaterno;
 
     /* apellido materno */
-    public String apellidoMaterno;
+    private String rptaApellidoMaterno;
 
     /* Primer o segundo prenombre */
-    public String prenombres;
+    private String rptaPrenombres;
 
     /* Reservado para uso futuro */
-    public String reservadoSubConsulta;
+    private String rptaReservadoSubConsulta;
 
     /**
      * Constructor que genera una Respuesta4 con todos sus campos llenos
@@ -95,26 +95,27 @@ public class Respuesta4 {
             String apellidoMaterno,
             String prenombres,
             String reservadoSubConsulta) {
-        this.version = version;
-        this.lonCabecera = lonCabecera;
-        this.tipoServicio = tipoServicio;
-        this.longTotalTrama = longTotalTrama;
-        this.fragmentacion = fragmentacion;
-        this.ttl = ttl;
-        this.tipoConsulta = tipoConsulta;
-        this.caractVerif = caractVerif;
-        this.codInstitucion = codInstitucion;
-        this.codServerReniec = codServerReniec;
-        this.agenciaInstSolic = agenciaInstSolic;
-        this.usuarioFinalInst = usuarioFinalInst;
-        this.hostFinalInst = hostFinalInst;
-        this.reservado = reservado;
-        this.coincidencias = coincidencias;
-        this.grupo = grupo;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.prenombres = prenombres;
-        this.reservadoSubConsulta = reservadoSubConsulta;
+        this.rptaVersion = version;
+        this.rptaLonCabecera = lonCabecera;
+        this.rptaTipoServicio = tipoServicio;
+        this.rptaLongTotalTrama = longTotalTrama;
+        this.rptaFragmentacion = fragmentacion;
+        this.rptaTtl = ttl;
+        this.rptaTipoConsulta = tipoConsulta;
+        this.rptaCaractVerif = caractVerif;
+        this.rptaCodInstitucion = codInstitucion;
+        this.rptaCodServerReniec = codServerReniec;
+        this.rptaAgenciaInstSolic = agenciaInstSolic;
+        this.rptaUsuarioFinalInst = usuarioFinalInst;
+        this.rptaHostFinalInst = hostFinalInst;
+        this.rptaReservado = reservado;
+        this.rptaCoincidencias = coincidencias;
+        this.rptaGrupo = grupo;
+        this.rptaApellidoPaterno = apellidoPaterno;
+        this.rptaApellidoMaterno = apellidoMaterno;
+        this.rptaPrenombres = prenombres;
+        this.rptaReservadoSubConsulta = reservadoSubConsulta;
+
     }
 
 }

@@ -29,27 +29,25 @@ public class ValidationProcessor implements Processor {
         // extrae el Header del exchange
         Header query = exchange.getIn().getBody(Header.class);
         Respuesta1 rpta = procesarData(query);
+        boolean flgRptaNull = rpta == null;
+        String tipoConsulta = (flgRptaNull ? query.headTipoConsulta.trim() : "");
 
-        if (rpta == null) {
+        // Búsqueda por nombres
+        if (tipoConsulta.equals("1")) {
 
-            switch (query.headTipoConsulta.trim()) {
-                // Búsqueda por nombres
-                case "1":
-                    // exchange.getIn().setBody(new Respuesta3(query.getTramaHeader2()));
-                    exchange.getIn().setBody(query);
-                    break;
-                // Búsqueda por DNI
-                case "2":
-                    exchange.getIn().setBody(query.getTramaHeader2());
-                    break;
-            }
+            exchange.getIn().setBody(query);
+
+            // Búsqueda por DNI
+        } else if (tipoConsulta.equals("2")) {
+
+            exchange.getIn().setBody(query.getTramaHeader2());
 
         } else {
 
+            // mensaje de ERROR
             exchange.getIn().setBody(rpta);
 
         }
-
     }
 
     /**
