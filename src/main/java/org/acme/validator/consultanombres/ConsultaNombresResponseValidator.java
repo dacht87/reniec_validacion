@@ -11,12 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ConsultaNombresResponseValidator implements Validator {
-	// Regex para validar que todos sean caracteres alfabeticos
-    private static final Pattern ALPHABETIC_PATTERN = Pattern.compile("^[a-zA-Z]+$");
-    
     // Regex para validar que todos sean caracteres alfabéticos con espacios entre nombres
-    private static final Pattern ALPHABETIC_PATTERN_WITH_SPACES = Pattern.compile("^[a-zA-Z]+[\\s[a-zA-Z]+]*$");
-	
+    private static final Pattern ALPHABETIC_PATTERN_WITH_SPACES = Pattern.compile("^[\\p{L}\\s]+$");
+    
 	// Logger para registrar información
     private Logger logger = LoggerFactory.getLogger(ConsultaNombresResponseValidator.class);
     
@@ -28,8 +25,7 @@ public class ConsultaNombresResponseValidator implements Validator {
 	
 	// validate headers
 	public void validateHeaders() {
-		Validator validator = new HeaderValidator(this.classObject.getHeaders());
-    	validator.validate();
+		this.classObject.getHeaders().validate();;
 	}
 	
 	//validate numCoincidenciasSolicitadas
@@ -49,7 +45,7 @@ public class ConsultaNombresResponseValidator implements Validator {
 	//validate apellido paterno
 	public void validateApellidoPaterno() {
 		if (this.classObject.getApellidoPaterno()== null || this.classObject.getApellidoPaterno().equals("") ||
-				!ALPHABETIC_PATTERN.matcher(this.classObject.getApellidoPaterno()).matches() ||
+				!ALPHABETIC_PATTERN_WITH_SPACES.matcher(this.classObject.getApellidoPaterno()).matches() ||
 				this.classObject.getApellidoPaterno().length() > Constants.MAX_LENGTH_LASTNAMES) {
 			throw new IllegalArgumentException(ErrorCodes.INVALID_PATERNAL_SURNAME);
 	    }
@@ -58,7 +54,7 @@ public class ConsultaNombresResponseValidator implements Validator {
 	//validate apellido materno
 	public void validateApellidoMaterno() {
 		if (this.classObject.getApellidoMaterno()== null || this.classObject.getApellidoMaterno().equals("") ||
-				!ALPHABETIC_PATTERN.matcher(this.classObject.getApellidoMaterno()).matches() ||
+				!ALPHABETIC_PATTERN_WITH_SPACES.matcher(this.classObject.getApellidoMaterno()).matches() ||
 				this.classObject.getApellidoMaterno().length() > Constants.MAX_LENGTH_LASTNAMES) {
 			throw new IllegalArgumentException(ErrorCodes.INVALID_MATERNAL_SURNAME);
 	    }

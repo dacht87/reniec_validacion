@@ -24,9 +24,9 @@ public class ConsultaNombresAdapter {
 				Constants.RESERVADO_HEADER_LENGTH);
 		int numCoincidenciasSolicitadas = Integer.parseInt(respuesta.getRptaCoincidencias());
 		int inicioGrupo = Integer.parseInt(respuesta.getRptaGrupo());
-		String apellidoPaterno = respuesta.getRptaApellidoPaterno();
-		String apellidoMaterno = respuesta.getRptaApellidoMaterno();
-		String prenombres = respuesta.getRptaPrenombres();
+		String apellidoPaterno = respuesta.getRptaApellidoPaterno().trim();
+		String apellidoMaterno = respuesta.getRptaApellidoMaterno().trim();
+		String prenombres = respuesta.getRptaPrenombres().trim();
 		int reservadoSubTrama = Constants.RESERVADO_REQUEST_BY_NAME_SUB_TRAMA_LENGTH;
 		ConsultaNombresResponse response = new ConsultaNombresResponse(
 				headers, 
